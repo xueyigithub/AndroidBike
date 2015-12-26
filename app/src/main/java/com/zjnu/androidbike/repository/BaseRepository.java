@@ -12,12 +12,12 @@ import com.couchbase.lite.android.AndroidContext;
  */
 public class BaseRepository {
 
-    public static final String DB_NAME = "couchbase";
+    public static final String DB_NAME = "AndroidBike";
 
     public static Document getDocument(Context wrappedContext) throws Exception {
         Manager manager = new Manager(new AndroidContext(wrappedContext), Manager.DEFAULT_OPTIONS);
         Database database = manager.getDatabase(DB_NAME);
-        Document document = database.getDocument("a");
+        Document document = database.getDocument("default");
         return document;
     }
 }
