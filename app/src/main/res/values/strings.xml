@@ -2,6 +2,6 @@
     <string name="app_name">骑车宝</string>
     <string name="action_settings">设置</string>
     <string name="login_error">登录失败</string>
-    <string name="text_login">登录</string>
-    <string name="text_register">注册</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
 </resources>
