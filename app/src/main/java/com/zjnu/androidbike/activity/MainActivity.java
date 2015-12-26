@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     @Bind(R.id.text_username)
     EditText username;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_login)
     void button_login() {
-        System.out.println(username.getText());
+        Log.d(TAG, username.getText().toString());
     }
 
     @OnClick(R.id.fab)
