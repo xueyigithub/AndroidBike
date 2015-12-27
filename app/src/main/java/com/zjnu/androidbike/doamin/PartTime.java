@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 兼职
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class PartTime implements Serializable {
 
     private static final long serialVersionUID = -673307599737196316L;

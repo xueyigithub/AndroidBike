@@ -5,14 +5,14 @@ import com.zjnu.androidbike.enums.StatusEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 操作日志
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class ManipulateLog implements Serializable {
 
     private static final long serialVersionUID = 6523931250661464934L;

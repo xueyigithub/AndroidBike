@@ -6,14 +6,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+
 
 /**
  * 驾校
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class DrivingSchool implements Serializable {
 
     private static final long serialVersionUID = -7623070889896794415L;

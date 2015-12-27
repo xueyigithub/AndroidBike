@@ -5,14 +5,14 @@ import com.zjnu.androidbike.enums.StatusEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 就业指南
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class StudyGuide implements Serializable {
 
     private static final long serialVersionUID = -6158949383481295192L;

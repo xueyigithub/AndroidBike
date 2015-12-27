@@ -6,14 +6,14 @@ import com.zjnu.androidbike.enums.StatusEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 游玩指南
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class PlayGuide implements Serializable {
 
     private static final long serialVersionUID = 452502101250329930L;

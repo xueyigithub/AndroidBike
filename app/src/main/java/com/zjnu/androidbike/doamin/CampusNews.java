@@ -7,14 +7,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 校园新闻
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class CampusNews implements Serializable {
 
     private static final long serialVersionUID = 6542387358181251748L;

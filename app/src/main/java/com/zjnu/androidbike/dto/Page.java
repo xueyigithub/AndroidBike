@@ -2,12 +2,14 @@ package com.zjnu.androidbike.dto;
 
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * Created by xueyi on 2015/12/27.
  */
 @Data
+@Builder
 public class Page<T> {
 
     private Boolean last;
@@ -21,6 +23,7 @@ public class Page<T> {
     private List<Sort> sort;
 
     @Data
+    @Builder
     public static class Sort {
         private String direction;
         private String property;

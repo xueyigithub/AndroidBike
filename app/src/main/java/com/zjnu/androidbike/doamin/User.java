@@ -7,8 +7,8 @@ import com.zjnu.androidbike.enums.StatusEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 用户
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
  * 注意：修改属性时候需要维护Dto
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class User implements Serializable {
 
     private static final long serialVersionUID = -6996578842465803307L;

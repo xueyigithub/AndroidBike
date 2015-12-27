@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 生活指南
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class LifeGuide implements Serializable {
 
     private static final long serialVersionUID = 8548010560035760651L;

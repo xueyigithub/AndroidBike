@@ -6,14 +6,14 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 /**
  * C2C交易
  */
 @Data
-@RequiredArgsConstructor
+@Builder
 public class C2C implements Serializable {
 
     private static final long serialVersionUID = 4071572746652102919L;
