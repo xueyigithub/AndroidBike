@@ -21,7 +21,7 @@ public class Page<T> {
     private List<Sort> sort;
 
     @Data
-    public class Sort {
+    public static class Sort {
         private String direction;
         private String property;
         private Boolean ignoreCase;
