@@ -18,7 +18,7 @@ public class Consts {
     /**
      * 服务端URL
      */
-    public static final String BASE_URL = "http://10.7.90.201:8080/bike/";
+    public static final String BASE_URL = "http://10.7.90.201:8080";
     public static final String URL_IMAGE = BASE_URL + "download/";
 
     public static final String URL_LIST_CampusNews = BASE_URL + "campusNews/listCampusNews";
