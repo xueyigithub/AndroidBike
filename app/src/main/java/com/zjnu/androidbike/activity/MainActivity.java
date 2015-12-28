@@ -11,11 +11,19 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.zjnu.androidbike.R;
+import com.zjnu.androidbike.doamin.PlayGuide;
+import com.zjnu.androidbike.dto.Page;
+import com.zjnu.androidbike.enums.CityEnum;
+import com.zjnu.androidbike.service.CallService;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,9 +41,46 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    //测试
+    int i = 0;
+
     @OnClick(R.id.button_login)
     void button_login() {
-        Log.d(TAG, username.getText().toString());
+        /*Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .registerTypeAdapter(Date.class, new DateSerializer()).setDateFormat(DateFormat.LONG)
+                .registerTypeAdapter(Date.class, new DateDeserializer()).setDateFormat(DateFormat.LONG)
+                .create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Consts.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        HttpService service = retrofit.create(HttpService.class);
+        Call<Page<PlayGuide>> playGuideCall = service.listPlayGuide(0, CityEnum.Hangzhou);*/
+        Call<Page<PlayGuide>> playGuideCall = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
+        Callback<Page<PlayGuide>> callback = new Callback<Page<PlayGuide>>() {
+            @Override
+            public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
+                Page<PlayGuide> playGuidePage = response.body();
+                //Log.d(TAG, response.body().getTotalPages().toString());
+                for (PlayGuide playGuide : playGuidePage.getContent()) {
+                    Log.d(TAG, playGuide.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.d(TAG, "a");
+            }
+        };
+        playGuideCall.enqueue(callback);
+            /*Page<PlayGuide> playGuidePage = playGuideCall.execute().body();
+
+            for (PlayGuide playGuide : playGuidePage.getContent()) {
+                Log.d(TAG, playGuide.toString());
+            }*/
+
+
     }
 
     @OnClick(R.id.fab)
