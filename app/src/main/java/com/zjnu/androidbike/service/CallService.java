@@ -2,13 +2,20 @@ package com.zjnu.androidbike.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.RequestBody;
 import com.zjnu.androidbike.config.Consts;
+import com.zjnu.androidbike.doamin.FileInfo;
 import com.zjnu.androidbike.util.DateDeserializer;
 import com.zjnu.androidbike.util.DateSerializer;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
@@ -30,5 +37,15 @@ public class CallService {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         service = retrofit.create(HttpService.class);
+    }
+
+    public static Call<FileInfo> upload(File file) {
+        Map<String, RequestBody> map = new HashMap<>();
+        if (file != null) {
+            RequestBody fileBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            map.put("multipart\"; filename=\"" + file.getName() + "", fileBody);
+            return service.upload(map);
+        }
+        return null;
     }
 }
