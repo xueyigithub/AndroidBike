@@ -46,41 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_login)
     void button_login() {
-        /*Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(Date.class, new DateSerializer()).setDateFormat(DateFormat.LONG)
-                .registerTypeAdapter(Date.class, new DateDeserializer()).setDateFormat(DateFormat.LONG)
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Consts.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        HttpService service = retrofit.create(HttpService.class);
-        Call<Page<PlayGuide>> playGuideCall = service.listPlayGuide(0, CityEnum.Hangzhou);*/
-        Call<Page<PlayGuide>> playGuideCall = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
-        Callback<Page<PlayGuide>> callback = new Callback<Page<PlayGuide>>() {
-            @Override
-            public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
-                Page<PlayGuide> playGuidePage = response.body();
-                //Log.d(TAG, response.body().getTotalPages().toString());
-                for (PlayGuide playGuide : playGuidePage.getContent()) {
-                    Log.d(TAG, playGuide.toString());
-                }
-            }
+        Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
+        call.enqueue(new Callback<Page<PlayGuide>>() {
+                         @Override
+                         public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
+                             Page<PlayGuide> playGuidePage = response.body();
+                             //Log.d(TAG, response.body().getTotalPages().toString());
+                             for (PlayGuide playGuide : playGuidePage.getContent()) {
+                                 Log.d(TAG, playGuide.toString());
+                             }
+                         }
 
-            @Override
-            public void onFailure(Throwable t) {
-                Log.d(TAG, "a");
-            }
-        };
-        playGuideCall.enqueue(callback);
-            /*Page<PlayGuide> playGuidePage = playGuideCall.execute().body();
-
-            for (PlayGuide playGuide : playGuidePage.getContent()) {
-                Log.d(TAG, playGuide.toString());
-            }*/
-
-
+                         @Override
+                         public void onFailure(Throwable t) {
+                             Log.d(TAG, "onFailure");
+                         }
+                     }
+        );
     }
 
     @OnClick(R.id.fab)
