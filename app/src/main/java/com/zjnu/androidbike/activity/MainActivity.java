@@ -46,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_login)
     void button_login() {
+        //User u = User.builder().userName("111").password("2222").build();
+        //Log.d(TAG, u.toString());
         Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
         call.enqueue(new Callback<Page<PlayGuide>>() {
                          @Override
                          public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
                              Page<PlayGuide> playGuidePage = response.body();
-                             //Log.d(TAG, response.body().getTotalPages().toString());
                              for (PlayGuide playGuide : playGuidePage.getContent()) {
                                  Log.d(TAG, playGuide.toString());
                              }
