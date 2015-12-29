@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.zjnu.androidbike.R;
 import com.zjnu.androidbike.doamin.PlayGuide;
+import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
 import com.zjnu.androidbike.enums.CityEnum;
 import com.zjnu.androidbike.service.CallService;
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_login)
     void button_login() {
-        //User u = User.builder().userName("111").password("2222").build();
-        //Log.d(TAG, u.toString());
         Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
         call.enqueue(new Callback<Page<PlayGuide>>() {
                          @Override
@@ -63,6 +62,23 @@ public class MainActivity extends AppCompatActivity {
                              Log.d(TAG, "onFailure");
                          }
                      }
+        );
+
+        User user = User.builder().userName("1").password("1").build();
+        Log.d(TAG, user.toString());
+        Call<User> call2 = CallService.service.login("1", "1");
+        call2.enqueue(new Callback<User>() {
+                          @Override
+                          public void onResponse(Response<User> response, Retrofit retrofit) {
+                              User userBack = response.body();
+                              Log.d(TAG, userBack.toString());
+                          }
+
+                          @Override
+                          public void onFailure(Throwable t) {
+                              Log.d(TAG, "onFailure");
+                          }
+                      }
         );
     }
 

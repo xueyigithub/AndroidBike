@@ -25,13 +25,34 @@ import retrofit.http.Query;
  */
 public interface HttpService {
 
+    /**
+     * 无效,需要修改
+     */
     @GET("/bike/download/{download}")
     Call<File> download(@Path("download") String download);
 
+    /**
+     * 无效,需要修改
+     */
     @Multipart
     @POST("/bike/upload")
     Call<FileInfo> upload(@PartMap Map<String, RequestBody> params);
 
+    /**
+     * 无效,需要修改
+     */
+    @POST("/bike/user/login")
+    Call<User> login(@Body User user);
+
+    /**
+     * 登录
+     */
+    @POST("/bike/user/login")
+    Call<User> login(@Query("userName") String userName, @Query("password") String password);
+
+    /**
+     * 无效,需要修改
+     */
     @POST("/bike/user/register")
     Call<User> register(@Body User user);
 
