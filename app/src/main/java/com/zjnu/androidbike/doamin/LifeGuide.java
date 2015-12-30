@@ -7,14 +7,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 生活指南
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class LifeGuide implements Serializable {
 
     private static final long serialVersionUID = 8548010560035760651L;

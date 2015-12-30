@@ -8,8 +8,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 文件信息
@@ -18,6 +20,8 @@ import lombok.Data;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class FileInfo implements Serializable {
 
     private static final long serialVersionUID = -4943866506112002047L;

@@ -7,14 +7,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 课程表
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class Schedule implements Serializable {
 
     private static final long serialVersionUID = -2518301601309093390L;

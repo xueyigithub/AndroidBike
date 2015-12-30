@@ -7,14 +7,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 失误招领
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class LostAndFound implements Serializable {
 
     private static final long serialVersionUID = -5429446501180027845L;

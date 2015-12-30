@@ -6,14 +6,18 @@ import com.zjnu.androidbike.enums.StatusEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 地图导航
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class Navigation implements Serializable {
 
     private static final long serialVersionUID = -3067811187673375870L;

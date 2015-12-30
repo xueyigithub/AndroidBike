@@ -18,6 +18,8 @@ import com.zjnu.androidbike.enums.CityEnum;
 import com.zjnu.androidbike.service.CallService;
 import com.zjnu.androidbike.util.MapUtils;
 
+import java.util.Date;
+
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
@@ -67,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                      }
         );
 
-        User user = User.builder().userName("1").password("1").build();
+        User user = User.builder().userName("1").password("2").build();
+        user.setPassword("1");
         /*Log.d(TAG, user.toString());
         Call<User> call2 = CallService.service.login("1", "1");
         Map<String, Object> options = new HashMap<>();
@@ -88,6 +91,27 @@ public class MainActivity extends AppCompatActivity {
                           }
                       }
         );
+    }
+
+    @OnClick(R.id.button_register)
+    void button_register() {
+        User u = new User();
+        u.setUserName("1");
+        u.setPassword("1");
+        Log.d(TAG, u.toString());
+
+        PlayGuide p = new PlayGuide("1",null,null,null,new Date(),null,null,null,null);
+        Log.d(TAG, p.toString());
+
+        /*SqlBrite sqlBrite = SqlBrite.create();
+        BriteDatabase db = sqlBrite.wrapDatabaseHelper();
+        Observable<SqlBrite.Query> users = db.createQuery("users", "SELECT * FROM users");
+        users.subscribe(new Action1<SqlBrite.Query>() {
+            @Override public void call(SqlBrite.Query query) {
+                Cursor cursor = query.run();
+                // TODO parse data...
+            }
+        });*/
     }
 
     @OnClick(R.id.fab)

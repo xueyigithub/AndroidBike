@@ -4,14 +4,18 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by xueyi on 2015/12/27.
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(suppressConstructorProperties = true)
 public class Page<T> {
 
     @Expose
@@ -35,6 +39,8 @@ public class Page<T> {
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor(suppressConstructorProperties = true)
     public static class Sort {
         @Expose
         private String direction;
