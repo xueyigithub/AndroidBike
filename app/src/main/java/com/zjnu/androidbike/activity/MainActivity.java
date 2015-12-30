@@ -16,6 +16,7 @@ import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
 import com.zjnu.androidbike.enums.CityEnum;
 import com.zjnu.androidbike.service.CallService;
+import com.zjnu.androidbike.util.MapUtils;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -47,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_login)
     void button_login() {
-        Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
+        //Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
+        PlayGuide playGuide = PlayGuide.builder().city(CityEnum.Hangzhou).build();
+        Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, MapUtils.getValueMap(playGuide));
         call.enqueue(new Callback<Page<PlayGuide>>() {
                          @Override
                          public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
@@ -65,8 +68,13 @@ public class MainActivity extends AppCompatActivity {
         );
 
         User user = User.builder().userName("1").password("1").build();
-        Log.d(TAG, user.toString());
+        /*Log.d(TAG, user.toString());
         Call<User> call2 = CallService.service.login("1", "1");
+        Map<String, Object> options = new HashMap<>();
+        options.put("userName", "1");
+        options.put("password", "1");
+        Call<User> call2 = CallService.service.login(options);*/
+        Call<User> call2 = CallService.service.login(MapUtils.getValueMap(user));
         call2.enqueue(new Callback<User>() {
                           @Override
                           public void onResponse(Response<User> response, Retrofit retrofit) {

@@ -39,7 +39,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.2'
     compile 'com.squareup.sqlbrite:sqlbrite:0.5.0'
     compile 'com.github.frankiesardo:auto-parcel:0.3.1'
-    //compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
 

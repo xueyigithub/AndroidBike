@@ -11,13 +11,13 @@ import java.io.File;
 import java.util.Map;
 
 import retrofit.Call;
-import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.http.QueryMap;
 
 
 /**
@@ -39,24 +39,32 @@ public interface HttpService {
     Call<FileInfo> upload(@PartMap Map<String, RequestBody> params);
 
     /**
-     * 无效,需要修改
-     */
-    @POST("/bike/user/login")
-    Call<User> login(@Body User user);
-
-    /**
-     * 登录
+     * 登录,舍弃
      */
     @POST("/bike/user/login")
     Call<User> login(@Query("userName") String userName, @Query("password") String password);
 
     /**
-     * 无效,需要修改
+     * 登录
+     */
+    @POST("/bike/user/login")
+    Call<User> login(@QueryMap Map<String, Object> userMap);
+
+    /**
+     * 注册
      */
     @POST("/bike/user/register")
-    Call<User> register(@Body User user);
+    Call<User> register(@QueryMap Map<String, Object> userMap);
 
+    /**
+     * listPlayGuide,舍弃
+     */
     @GET("/bike/playGuide/listPlayGuide?sort=baiduPage,Asc&sort=id,Asc")
     Call<Page<PlayGuide>> listPlayGuide(@Query("page") Integer page, @Query("city") CityEnum city);
 
+    /**
+     * listPlayGuide
+     */
+    @GET("/bike/playGuide/listPlayGuide?sort=baiduPage,Asc&sort=id,Asc")
+    Call<Page<PlayGuide>> listPlayGuide(@Query("page") Integer page, @QueryMap Map<String, Object> playGuideMap);
 }
