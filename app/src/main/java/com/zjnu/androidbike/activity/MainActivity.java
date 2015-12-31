@@ -18,8 +18,6 @@ import com.zjnu.androidbike.enums.CityEnum;
 import com.zjnu.androidbike.service.CallService;
 import com.zjnu.androidbike.util.MapUtils;
 
-import java.util.Date;
-
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
@@ -95,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_register)
     void button_register() {
-        User u = new User();
+        /*User u = new User();
         u.setUserName("1");
         u.setPassword("1");
         Log.d(TAG, u.toString());
 
         PlayGuide p = new PlayGuide("1",null,null,null,new Date(),null,null,null,null);
-        Log.d(TAG, p.toString());
+        Log.d(TAG, p.toString());*/
 
         /*SqlBrite sqlBrite = SqlBrite.create();
         BriteDatabase db = sqlBrite.wrapDatabaseHelper();
