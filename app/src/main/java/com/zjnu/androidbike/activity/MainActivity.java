@@ -10,13 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import com.activeandroid.ActiveAndroid;
 import com.zjnu.androidbike.R;
+import com.zjnu.androidbike.dao.Dao;
 import com.zjnu.androidbike.doamin.PlayGuide;
 import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
 import com.zjnu.androidbike.enums.CityEnum;
 import com.zjnu.androidbike.service.CallService;
 import com.zjnu.androidbike.util.MapUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -57,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
                              Page<PlayGuide> playGuidePage = response.body();
                              for (PlayGuide playGuide : playGuidePage.getContent()) {
                                  Log.d(TAG, playGuide.toString());
+                                 /*DbModel db = new DbModel(playGuide);
+                                 Log.d(TAG, db.toString());
+                                 db.save();*/
+                                 //new DbModel(playGuide).save();
+                                 Dao.save(playGuide);
                              }
                          }
 
@@ -93,6 +102,24 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_register)
     void button_register() {
+        PlayGuide t = Dao.findOne(PlayGuide.class, "567686b2bffc5f10d2fc6b66");
+        Dao.delete(t);
+        List<PlayGuide> playGuides = Dao.findAll(PlayGuide.class);
+        Log.d(TAG, "" + playGuides.size());
+        for (PlayGuide playGuide : playGuides) {
+            Log.d(TAG, playGuide.toString());
+        }
+        /*List<DbModel> dbs = new Select()
+                .from(DbModel.class)
+                .where("obj = ?", PlayGuide.class.getSimpleName())
+                //.and("key = ?", key)
+                //.where("obj = ? and key = ?", objClass.getClass().getSimpleName(), key)
+                .limit(1)
+                .execute();
+        Log.d(TAG, "" + dbs.size());*/
+        //Log.d(TAG, t.toString());
+
+        //PlayGuide playGuide = new DbModel<PlayGuide>().findOne(PlayGuide.class, "567686b2bffc5f10d2fc6b62");
         /*User u = new User();
         u.setUserName("1");
         u.setPassword("1");
@@ -123,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        ActiveAndroid.initialize(this);
         setSupportActionBar(toolbar);
     }
 
