@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.activeandroid.ActiveAndroid;
 import com.zjnu.androidbike.R;
 import com.zjnu.androidbike.dao.Dao;
+import com.zjnu.androidbike.dao.DbPlayGuide;
 import com.zjnu.androidbike.doamin.PlayGuide;
 import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
                                  db.save();*/
                                  //new DbModel(playGuide).save();
                                  Dao.save(playGuide);
+                                 DbPlayGuide dbPlayGuide = DbPlayGuide.builder().playGuide(playGuide).id(playGuide.getId()).hasLogin(true).testStr("aa").build();
+                                 Dao.save(dbPlayGuide);
+
                              }
                          }
 
