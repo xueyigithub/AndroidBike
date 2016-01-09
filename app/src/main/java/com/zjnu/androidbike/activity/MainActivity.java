@@ -98,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
                      }
         );*/
 
-        /*Log.d(TAG, user.toString());
-        Log.d(TAG, hangzhouPlayGuide.toString());
-        Log.d(TAG, jinhuaPlayGuide.toString());*/
+        Log.d(TAG, user == null ? "null" : user.toString());
+        Log.d(TAG, hangzhouPlayGuide == null ? "null" : hangzhouPlayGuide.toString());
+        Log.d(TAG, jinhuaPlayGuide == null ? "null" : jinhuaPlayGuide.toString());
 
         CallService.service.listPlayGuideByObservable(i++, MapUtils.getValueMap(playGuide))
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .doOnNext(new Action1<Page<PlayGuide>>() {
                     @Override
                     public void call(Page<PlayGuide> playGuidePage) {
