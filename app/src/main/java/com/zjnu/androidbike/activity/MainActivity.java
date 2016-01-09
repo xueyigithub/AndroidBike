@@ -31,10 +31,6 @@ import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.Lazy;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import rx.Observer;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -110,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         int j = 0;
                         for (PlayGuide playGuide : playGuidePage.getContent()) {
                             Log.d(TAG, "playGuide" + j++);
-                            Dao.save(playGuide);
+                            //Dao.save(playGuide);
                         }
                     }
                 })
@@ -129,20 +125,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onNext(Page<PlayGuide> playGuidePage) {
                         for (PlayGuide playGuide : playGuidePage.getContent()) {
-                            Log.d(TAG, playGuide.toString());
+                            //Log.d(TAG, playGuide.toString());
                         }
+                        Dao.saveAll(playGuidePage.getContent());
                     }
                 });
 
-        User user = User.builder().userName("1").password("2").build();
-        user.setPassword("1");
+        /*User user = User.builder().userName("1").password("2").build();
+        user.setPassword("1");*/
         /*Log.d(TAG, user.toString());
         Call<User> call2 = CallService.service.login("1", "1");
         Map<String, Object> options = new HashMap<>();
         options.put("userName", "1");
         options.put("password", "1");
         Call<User> call2 = CallService.service.login(options);*/
-        Call<User> call2 = CallService.service.login(MapUtils.getValueMap(user));
+        /*Call<User> call2 = CallService.service.login(MapUtils.getValueMap(user));
         call2.enqueue(new Callback<User>() {
                           @Override
                           public void onResponse(Response<User> response, Retrofit retrofit) {
@@ -155,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                               Log.d(TAG, "onFailure");
                           }
                       }
-        );
+        );*/
     }
 
     @OnClick(R.id.button_register)
@@ -167,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
         for (PlayGuide playGuide : playGuides) {
             Log.d(TAG, playGuide.toString());
         }
+        Dao.cleanAll(PlayGuide.class);
+        List<PlayGuide> playGuides2 = Dao.findAll(PlayGuide.class);
+        Log.d(TAG, "" + playGuides2.size());
         /*List<DbModel> dbs = new Select()
                 .from(DbModel.class)
                 .where("obj = ?", PlayGuide.class.getSimpleName())

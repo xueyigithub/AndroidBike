@@ -34,6 +34,27 @@ public class Dao {
         return dbModel;
     }
 
+    public static <T> List<DbModel> saveAll(List<T> l) {
+        List<DbModel> dbModels = new ArrayList<>();
+        try {
+            if (l != null && l.size() > 0) {
+                Gson gson = new Gson();
+                String obj = l.get(0).getClass().getSimpleName();
+                Method getId = l.get(0).getClass().getMethod("getId");
+                for (T t : l) {
+                    String key = (String) getId.invoke(t);
+                    String value = gson.toJson(t);
+                    DbModel dbModel = DbModel.builder().obj(obj).key(key).value(value).build();
+                    dbModel.save();
+                    dbModels.add(dbModel);
+                }
+            }
+        } catch (Exception e) {
+            Log.d(TAG, e.toString());
+        }
+        return dbModels;
+    }
+
     public static <T> Boolean delete(T t) {
         try {
             String obj = t.getClass().getSimpleName();
