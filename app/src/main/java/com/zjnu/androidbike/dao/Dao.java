@@ -3,6 +3,7 @@ package com.zjnu.androidbike.dao;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.google.gson.Gson;
 
@@ -81,5 +82,10 @@ public class Dao {
             }
         }
         return ts;
+    }
+
+    public static <T> Boolean cleanAll(Class<T> objClass) {
+        new Delete().from(DbModel.class).where("obj = ?", objClass.getSimpleName()).execute();
+        return true;
     }
 }
