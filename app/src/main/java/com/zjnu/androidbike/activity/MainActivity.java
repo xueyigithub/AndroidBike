@@ -14,6 +14,7 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.rxschedulers.AndroidSchedulers;
 import com.zjnu.androidbike.R;
 import com.zjnu.androidbike.dao.Dao;
+import com.zjnu.androidbike.dao.Login;
 import com.zjnu.androidbike.doamin.PlayGuide;
 import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
@@ -157,7 +158,19 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.button_register)
     void button_register() {
-        PlayGuide t = Dao.findOne(PlayGuide.class, "567686b2bffc5f10d2fc6b66");
+        User user = User.builder().userName("1").password("1").build();
+        Login login = Login.builder().id("1").user(user).hasLogin(true).hasLogin2("登录").build();
+        Dao.cleanAll(Login.class);
+        Dao.save(login);
+        List<Login> logins = Dao.findAll(Login.class);
+        Log.d(TAG, "" + logins.size());
+        for (Login l : logins) {
+            Log.d(TAG, l.toString());
+        }
+        Login login2 = Dao.findOne(Login.class, "1");
+        Log.d(TAG, login2.toString());
+
+        /*PlayGuide t = Dao.findOne(PlayGuide.class, "567686b2bffc5f10d2fc6b66");
         Dao.delete(t);
         List<PlayGuide> playGuides = Dao.findAll(PlayGuide.class);
         Log.d(TAG, "" + playGuides.size());
@@ -166,7 +179,9 @@ public class MainActivity extends AppCompatActivity {
         }
         Dao.cleanAll(PlayGuide.class);
         List<PlayGuide> playGuides2 = Dao.findAll(PlayGuide.class);
-        Log.d(TAG, "" + playGuides2.size());
+        Log.d(TAG, "" + playGuides2.size());*/
+
+
         /*List<DbModel> dbs = new Select()
                 .from(DbModel.class)
                 .where("obj = ?", PlayGuide.class.getSimpleName())
