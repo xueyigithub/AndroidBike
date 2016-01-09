@@ -159,7 +159,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button_register)
     void button_register() {
         User user = User.builder().userName("1").password("1").build();
-        Login login = Login.builder().id("1").user(user).hasLogin(true).hasLogin2("登录").build();
+        Login login = Login.builder().id("1").user(user).hasLogin(true).build();
+        Dao.cleanAll(Login.class);
         Dao.cleanAll(Login.class);
         Dao.save(login);
         List<Login> logins = Dao.findAll(Login.class);
