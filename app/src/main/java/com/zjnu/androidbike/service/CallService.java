@@ -18,6 +18,7 @@ import java.util.Map;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 
 /**
  * Created by xueyi on 2015/12/28.
@@ -35,6 +36,7 @@ public class CallService {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Consts.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         service = retrofit.create(HttpService.class);
     }

@@ -18,6 +18,7 @@ import retrofit.http.PartMap;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.http.QueryMap;
+import rx.Observable;
 
 
 /**
@@ -67,4 +68,10 @@ public interface HttpService {
      */
     @GET("/bike/playGuide/listPlayGuide?sort=baiduPage,Asc&sort=id,Asc")
     Call<Page<PlayGuide>> listPlayGuide(@Query("page") Integer page, @QueryMap Map<String, Object> playGuideMap);
+
+    /**
+     * listPlayGuide
+     */
+    @GET("/bike/playGuide/listPlayGuide?sort=baiduPage,Asc&sort=id,Asc")
+    Observable<Page<PlayGuide>> listPlayGuideByObservable(@Query("page") Integer page, @QueryMap Map<String, Object> playGuideMap);
 }

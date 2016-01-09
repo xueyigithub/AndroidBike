@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.rxschedulers.AndroidSchedulers;
 import com.zjnu.androidbike.R;
 import com.zjnu.androidbike.dao.Dao;
-import com.zjnu.androidbike.dao.DbPlayGuide;
 import com.zjnu.androidbike.doamin.PlayGuide;
 import com.zjnu.androidbike.doamin.User;
 import com.zjnu.androidbike.dto.Page;
@@ -23,14 +23,21 @@ import com.zjnu.androidbike.util.MapUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.Lazy;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
+import rx.Observer;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
+    @Inject
+    Lazy<User> user;
+
+    @Inject
+    @Named("Hangzhou")
+    PlayGuide hangzhouPlayGuide;
+
+    @Inject
+    @Named("Jinhua")
+    Lazy<PlayGuide> jinhuaPlayGuide;
+
     //测试
     int i = 0;
 
@@ -55,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
     void button_login() {
         //Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, CityEnum.Jinhua);
         PlayGuide playGuide = PlayGuide.builder().city(CityEnum.Hangzhou).build();
-        Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, MapUtils.getValueMap(playGuide));
+        /*Call<Page<PlayGuide>> call = CallService.service.listPlayGuide(i++, MapUtils.getValueMap(playGuide));
         call.enqueue(new Callback<Page<PlayGuide>>() {
                          @Override
                          public void onResponse(Response<Page<PlayGuide>> response, Retrofit retrofit) {
                              Page<PlayGuide> playGuidePage = response.body();
                              for (PlayGuide playGuide : playGuidePage.getContent()) {
                                  Log.d(TAG, playGuide.toString());
-                                 /*DbModel db = new DbModel(playGuide);
+                                 *//*DbModel db = new DbModel(playGuide);
                                  Log.d(TAG, db.toString());
-                                 db.save();*/
+                                 db.save();*//*
                                  //new DbModel(playGuide).save();
                                  Dao.save(playGuide);
                                  DbPlayGuide dbPlayGuide = DbPlayGuide.builder().playGuide(playGuide).id(playGuide.getId()).hasLogin(true).testStr("aa").build();
@@ -78,7 +96,43 @@ public class MainActivity extends AppCompatActivity {
                              Log.d(TAG, "onFailure");
                          }
                      }
-        );
+        );*/
+
+        /*Log.d(TAG, user.toString());
+        Log.d(TAG, hangzhouPlayGuide.toString());
+        Log.d(TAG, jinhuaPlayGuide.toString());*/
+
+        CallService.service.listPlayGuideByObservable(i++, MapUtils.getValueMap(playGuide))
+                .subscribeOn(Schedulers.newThread())
+                .doOnNext(new Action1<Page<PlayGuide>>() {
+                    @Override
+                    public void call(Page<PlayGuide> playGuidePage) {
+                        int j = 0;
+                        for (PlayGuide playGuide : playGuidePage.getContent()) {
+                            Log.d(TAG, "playGuide" + j++);
+                            Dao.save(playGuide);
+                        }
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Page<PlayGuide>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Page<PlayGuide> playGuidePage) {
+                        for (PlayGuide playGuide : playGuidePage.getContent()) {
+                            Log.d(TAG, playGuide.toString());
+                        }
+                    }
+                });
 
         User user = User.builder().userName("1").password("2").build();
         user.setPassword("1");
